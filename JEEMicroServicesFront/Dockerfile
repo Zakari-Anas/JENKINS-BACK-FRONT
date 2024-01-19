@@ -1,8 +1,6 @@
-FROM node:14.15.0-alpine as builder
+FROM node:latest
 WORKDIR /app
-COPY . .
+COPY package.json .
 RUN npm install
-RUN npm run build
-
-FROM nginx:alpine
-COPY --from=builder /app/dist/smart-home /usr/share/nginx/html
+COPY . .
+CMD ["npm", "start"]

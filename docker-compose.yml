@@ -11,13 +11,13 @@ services:
 
   backend:
     build:
-      context: ./SuppBack
+      context: ./JEEMicroServices
     ports:
-      - "8085:8085"
+      - "9090:9090"
     depends_on:
       - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/smart-house
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/HSupp
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
     healthcheck:
@@ -28,9 +28,9 @@ services:
 
   frontend:
     build:
-      context: ./SuppFront
+      context: ./JEEMicroServicesFront
     ports:
-      - "80:80"
+      - "91:91"
     depends_on:
       - backend
 
