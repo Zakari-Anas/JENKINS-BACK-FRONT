@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Etudiant" />
+        <module name="paiement" />
+        <module name="salle" />
+        <module name="GateWay" />
+        <module name="microService-employe" />
+        <module name="Absence" />
+        <module name="reservation" />
+        <module name="emploiDuTemp" />
+        <module name="EurekaServer1" />
+        <module name="Cours" />
+        <module name="microService-groupe" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Absence" options="-parameters" />
+      <module name="Cours" options="-parameters" />
+      <module name="Etudiant" options="-parameters" />
+      <module name="EurekaServer1" options="-parameters" />
+      <module name="GateWay" options="-parameters" />
+      <module name="emploiDuTemp" options="-parameters" />
+      <module name="microService-employe" options="-parameters" />
+      <module name="microService-groupe" options="-parameters" />
+      <module name="paiement" options="-parameters" />
+      <module name="reservation" options="-parameters" />
+      <module name="salle" options="-parameters" />
+    </option>
+  </component>
+</project>
