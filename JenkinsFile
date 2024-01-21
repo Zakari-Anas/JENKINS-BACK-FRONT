@@ -1,0 +1,242 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven'
+    }
+    
+    stages {
+        stage('Git Clone') {
+            steps {
+                script {
+                      checkout([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs: [[url: 'https://github.com/Zakari-Anas/JENKINS-BACK-FRONT.git']]])
+    
+                }
+            }
+        }
+
+        stage('Build Discovery-Service') {
+            steps {
+                dir('JEEMicroServices/EurekaServer1'){
+
+                bat 'mvn clean install'
+                }
+            }
+        }
+        stage('Build gateway-service') {
+            steps {
+                dir('JEEMicroServices/GateWay'){
+
+                bat 'mvn clean install'
+                }
+            }
+        }
+
+
+        stage('Build PROF-service') {
+            steps {
+            script{
+                dir('JEEMicroServices/microService-employe'){
+
+                withSonarQubeEnv('sonarserver') {
+                    bat "mvn clean verify sonar:sonar -Dsonar.projectKey=geocoder-service -Dsonar.projectName='geocoder-service'"
+                }
+
+                timeout(time:1, unit:'HOURS'){
+                    def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Quality Gate did not pass. Check the SonarQube dashboard for details."
+                        }
+                }
+
+                bat 'mvn clean install'
+                }
+                }
+            }
+        }
+        stage('Build group-service') {
+            steps {
+            script{
+                dir('JEEMicroServices/microService-groupe'){
+
+                    withSonarQubeEnv('sonarserver') {
+                        bat "mvn clean verify sonar:sonar -Dsonar.projectKey=weather-service -Dsonar.projectName='weather-service'"
+                    }
+                    timeout(time:1, unit:'HOURS'){
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Quality Gate did not pass. Check the SonarQube dashboard for details."
+                        }
+                    }
+
+                bat 'mvn clean install'
+                }}
+            }
+        }
+        stage('Build paiement-service') {
+            steps {
+            script{
+                dir('JEEMicroServices/microService-paiement'){
+
+                withSonarQubeEnv('sonarserver') {
+                    bat "mvn clean verify sonar:sonar -Dsonar.projectKey=weather-forecast -Dsonar.projectName='weather-forecast'"
+                }
+                timeout(time:1, unit:'HOURS'){
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Quality Gate did not pass. Check the SonarQube dashboard for details."
+                    }
+                }
+
+                bat 'mvn clean install'
+                }
+                }
+            }
+        }
+        
+          stage('Build reservation-service') {
+            steps {
+            script{
+                dir('JEEMicroServices/microService-reservation'){
+
+                withSonarQubeEnv('sonarserver') {
+                    bat "mvn clean verify sonar:sonar -Dsonar.projectKey=weather-forecast -Dsonar.projectName='weather-forecast'"
+                }
+                timeout(time:1, unit:'HOURS'){
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Quality Gate did not pass. Check the SonarQube dashboard for details."
+                    }
+                }
+
+                bat 'mvn clean install'
+                }
+                }
+            }
+        }
+        
+           stage('Build salle-service') {
+            steps {
+            script{
+                dir('JEEMicroServices/microService-salle'){
+
+                withSonarQubeEnv('sonarserver') {
+                    bat "mvn clean verify sonar:sonar -Dsonar.projectKey=weather-forecast -Dsonar.projectName='weather-forecast'"
+                }
+                timeout(time:1, unit:'HOURS'){
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Quality Gate did not pass. Check the SonarQube dashboard for details."
+                    }
+                }
+
+                bat 'mvn clean install'
+                }
+                }
+            }
+        }
+        
+        stage('Build emploiDuTemp-service') {
+            steps {
+            script{
+                dir('JEEMicroServices/microService-emploiDuTemp'){
+
+                withSonarQubeEnv('sonarserver') {
+                    bat "mvn clean verify sonar:sonar -Dsonar.projectKey=weather-forecast -Dsonar.projectName='weather-forecast'"
+                }
+                timeout(time:1, unit:'HOURS'){
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Quality Gate did not pass. Check the SonarQube dashboard for details."
+                    }
+                }
+
+                bat 'mvn clean install'
+                }
+                }
+            }
+        }
+        
+        stage('Build Etudiant-service') {
+            steps {
+            script{
+                dir('JEEMicroServices/microService-Etudiant'){
+
+                withSonarQubeEnv('sonarserver') {
+                    bat "mvn clean verify sonar:sonar -Dsonar.projectKey=weather-forecast -Dsonar.projectName='weather-forecast'"
+                }
+                timeout(time:1, unit:'HOURS'){
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Quality Gate did not pass. Check the SonarQube dashboard for details."
+                    }
+                }
+
+                bat 'mvn clean install'
+                }
+                }
+            }
+        }
+        
+        stage('Build Cours-service') {
+            steps {
+            script{
+                dir('JEEMicroServices/microService-Cours'){
+
+                withSonarQubeEnv('sonarserver') {
+                    bat "mvn clean verify sonar:sonar -Dsonar.projectKey=weather-forecast -Dsonar.projectName='weather-forecast'"
+                }
+                timeout(time:1, unit:'HOURS'){
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Quality Gate did not pass. Check the SonarQube dashboard for details."
+                    }
+                }
+
+                bat 'mvn clean install'
+                }
+                }
+            }
+        }
+        
+              stage('Build Absence-service') {
+            steps {
+            script{
+                dir('JEEMicroServices/microService-Absence'){
+
+                withSonarQubeEnv('sonarserver') {
+                    bat "mvn clean verify sonar:sonar -Dsonar.projectKey=weather-forecast -Dsonar.projectName='weather-forecast'"
+                }
+                timeout(time:1, unit:'HOURS'){
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Quality Gate did not pass. Check the SonarQube dashboard for details."
+                    }
+                }
+
+                bat 'mvn clean install'
+                }
+                }
+            }
+        }
+        
+
+        stage('Build Supp ui') {
+                    steps {
+                    dir('JEEMicroServicesFront'){
+                        bat 'npm install'
+                }
+            }
+        }
+
+
+        stage('Compose and Build Docker Images') {
+            steps {
+
+                bat 'docker compose up --build -d'
+                
+            }
+        }
+
+
+    }
+}
